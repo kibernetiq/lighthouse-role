@@ -1,0 +1,14 @@
+---
+- include_tasks: nginx.yml
+- name: Lighthouse | Clone repository
+  ansible.builtin.git:
+    repo: "{{ lighthouse_url }}"
+    dest: "{{ lighthouse_dir }}"
+    version: master
+- name: Lighthouse | Apply config
+  become: true
+  ansible.builtin.template:
+    src: templates/lighthouse.conf.j2
+    dest: "{{ lighthouse_nginx_dir }}"
+    mode: "01204"
+  notify: Nginx reload
