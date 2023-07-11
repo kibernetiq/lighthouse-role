@@ -1,0 +1,22 @@
+---
+- name: Lighthouse | Install git
+  become: true
+  ansible.builtin.yum:
+    name: git
+    state: present
+- name: Lighthouse | Install epel-release
+  become: true
+  ansible.builtin.yum:
+    name: epel-release
+    state: present
+- name: Lighthouse | Install Nginx
+  become: true
+  ansible.builtin.yum:
+    name: nginx
+    state: present
+- name: Lighthouse | Start nginx
+  become: true
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+    enabled: true
